@@ -15,6 +15,7 @@ namespace Report.Application.DependencyInjection
                 b => b.MigrationsAssembly("StayScanner.Api")));
 
             services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<IRabbitMqService, RabbitMqService>();
             return services;
         }
     }
