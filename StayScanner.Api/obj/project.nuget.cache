@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "D3o3s1xBznc=",
+  "dgSpecHash": "eb6acsmkZeo=",
   "success": true,
   "projectFilePath": "C:\\Users\\cihan\\source\\repos\\StayScanner\\StayScanner.Api\\StayScanner.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cihan\\.nuget\\packages\\cosmosbase\\1.5.2\\cosmosbase.1.5.2.nupkg.sha512",
     "C:\\Users\\cihan\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\cihan\\.nuget\\packages\\mapster\\7.4.0\\mapster.7.4.0.nupkg.sha512",
+    "C:\\Users\\cihan\\.nuget\\packages\\mapster.core\\1.2.1\\mapster.core.1.2.1.nupkg.sha512",
     "C:\\Users\\cihan\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.8\\microsoft.aspnetcore.authentication.jwtbearer.8.0.8.nupkg.sha512",
     "C:\\Users\\cihan\\.nuget\\packages\\microsoft.aspnetcore.http\\2.1.34\\microsoft.aspnetcore.http.2.1.34.nupkg.sha512",
     "C:\\Users\\cihan\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.1.1\\microsoft.aspnetcore.http.abstractions.2.1.1.nupkg.sha512",

@@ -56,6 +56,10 @@
               "target": "Package",
               "version": "[1.5.2, )"
             },
+            "Mapster": {
+              "target": "Package",
+              "version": "[7.4.0, )"
+            },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[9.0.2, )"
