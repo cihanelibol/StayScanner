@@ -18,6 +18,7 @@ namespace Hotel.Application.DependencyInjection
 
 
             services.AddScoped<IHotelService, HotelService>();
+            services.AddScoped<IContactService, ContactService>();
             return services;
         }
     }
