@@ -1,4 +1,6 @@
-﻿using Hotel.Infrastructure.Context;
+﻿using Hotel.Application.Services.Abstract;
+using Hotel.Application.Services.Concrete;
+using Hotel.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,8 @@ namespace Hotel.Application.DependencyInjection
                  b =>
                  b.MigrationsAssembly("StayScanner.Api")));
 
+
+            services.AddScoped<IHotelService, HotelService>();
             return services;
         }
     }

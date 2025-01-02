@@ -148,6 +148,5 @@ C:\Users\cihan\source\repos\StayScanner\StayScanner.Api\obj\Debug\net8.0\refint\
 C:\Users\cihan\source\repos\StayScanner\StayScanner.Api\obj\Debug\net8.0\StayScanner.Api.pdb
 C:\Users\cihan\source\repos\StayScanner\StayScanner.Api\obj\Debug\net8.0\StayScanner.Api.genruntimeconfig.cache
 C:\Users\cihan\source\repos\StayScanner\StayScanner.Api\obj\Debug\net8.0\ref\StayScanner.Api.dll
-C:\Users\cihan\source\repos\StayScanner\StayScanner.Api\bin\Debug\net8.0\StayScanner.Api.staticwebassets.endpoints.json
-C:\Users\cihan\source\repos\StayScanner\StayScanner.Api\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\Users\cihan\source\repos\StayScanner\StayScanner.Api\obj\Debug\net8.0\staticwebassets\msbuild.StayScanner.Api.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\cihan\source\repos\StayScanner\StayScanner.Api\bin\Debug\net8.0\Mapster.dll
+C:\Users\cihan\source\repos\StayScanner\StayScanner.Api\bin\Debug\net8.0\Mapster.Core.dll
