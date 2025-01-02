@@ -8,6 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="CosmosBase" Version="1.5.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hotel.Infrastructure\Hotel.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,16 @@
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\bin\Debug\net8.0\Hotel.Infrastructure.deps.json
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\bin\Debug\net8.0\Hotel.Infrastructure.dll
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\bin\Debug\net8.0\Hotel.Infrastructure.pdb
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\bin\Debug\net8.0\Hotel.Domain.dll
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\bin\Debug\net8.0\Hotel.Domain.pdb
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\obj\Debug\net8.0\Hotel.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\obj\Debug\net8.0\Hotel.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\obj\Debug\net8.0\Hotel.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\obj\Debug\net8.0\Hotel.Infrastructure.AssemblyInfo.cs
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\obj\Debug\net8.0\Hotel.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\obj\Debug\net8.0\Hotel.Infrastructure.sourcelink.json
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\obj\Debug\net8.0\Hotel.In.3ECE7436.Up2Date
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\obj\Debug\net8.0\Hotel.Infrastructure.dll
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\obj\Debug\net8.0\refint\Hotel.Infrastructure.dll
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\obj\Debug\net8.0\Hotel.Infrastructure.pdb
+C:\Users\cihan\source\repos\StayScanner\Hotel.Infrastructure\obj\Debug\net8.0\ref\Hotel.Infrastructure.dll
