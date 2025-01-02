@@ -1,9 +1,13 @@
-﻿using Report.Application.Dtos;
+﻿using CosmosBase.Entites;
+using Report.Application.Dtos;
 
 namespace Report.Application.Services.Abstract
 {
     public interface IReportService
     {
-        public Task<List<HotelsInfoByLocationDto>> GetHotelsInfoByLocationAsync(string location);
+        public Task<ApiResponse> GetHotelsInfoByLocationAsync(string location);
+        public Task<Guid> CreateReportAsync(HotelsInfoByLocationDto hotelsInfoByLocation);
+
+
     }
 }
