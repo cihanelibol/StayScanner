@@ -1,12 +1,13 @@
-﻿using Hotel.Application.Dto;
+﻿using CosmosBase.Entites;
+using Hotel.Application.Dto;
 
 namespace Hotel.Application.Services.Abstract
 {
     public interface IHotelService
     {
-        public Task<Guid> CreateHotelAsync(HotelDto hotelDto);
-        public Task<bool> DeleteHotelAsync(Guid hotelId);
-        public Task<List<AuthorizedPerson>> GetAuthorizedListAsync();
-        public Task<AuthorizedPerson> GetAuthorizedByHotelIdAsync(Guid id);
+        public Task<ApiResponse> CreateHotelAsync(HotelDto hotelDto);
+        public Task<ApiResponse> DeleteHotelAsync(Guid hotelId);
+        public Task<ApiResponse> GetAuthorizedListAsync();
+        public Task<ApiResponse> GetAuthorizedByHotelIdAsync(Guid id);
     }
 }

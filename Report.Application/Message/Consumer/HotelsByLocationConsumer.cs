@@ -19,7 +19,6 @@ namespace Report.Application.Message.Consumer
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var data = await rabbitMqService.ConsumeAsync(queueName: "location", exchangeName: "hotels_by_location", routingKey: "report.create");
-            reportService.CreateReportAsync()
 
         }
     }
