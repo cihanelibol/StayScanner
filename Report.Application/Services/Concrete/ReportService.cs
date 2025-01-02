@@ -1,10 +1,12 @@
 ﻿using CosmosBase.Entites;
 using CosmosBase.Repository.Abstract;
+using LinqKit;
 using Mapster;
 using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
 using Report.Application.Dtos;
 using Report.Application.Services.Abstract;
-using Report.Domain.Entities;
+using Report.Domain.Enums;
 using Report.Infrastructure.Context;
 using System.Net;
 
@@ -16,47 +18,64 @@ namespace Report.Application.Services.Concrete
         private readonly IMapper mapper;
         private readonly IUnitOfWork<ApplicationDbContext> unitOfWork;
 
-        public ReportService(IRabbitMqService rabbitMqService, IMapper mapper, IUnitOfWork<ApplicationDbContext> unitOfWork)
+        public ReportService(IRabbitMqService rabbitMqService, IUnitOfWork<ApplicationDbContext> unitOfWork)
         {
             this.rabbitMqService = rabbitMqService;
-            this.mapper = mapper;
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<ApiResponse> GetHotelsInfoByLocationAsync(string location)
+        public async Task<ApiResponse> CreateReportAsync(CreateReportDto report)
         {
-            var response = new ApiResponse();
+            ApiResponse response = new ApiResponse();
 
-            if (string.IsNullOrWhiteSpace(location))
-            {
-                response.IsSuccessful = false;
-                response.StatusCode = (int)HttpStatusCode.BadRequest;
-                response.Error = "Please provide a valid location";
-                return response;
-            }
+            var reportEntity = report.Adapt<Report.Domain.Entities.Report>();
+            reportEntity.ReportStatus = Domain.Enums.ReportStatus.GettingReady;
 
-            await rabbitMqService.SendAsync("location", "hotels_by_location", "report.create", location);
+            var data = await unitOfWork.Context.Reports.AddAsync(reportEntity);
+            await unitOfWork.Context.SaveChangesAsync();
 
+            response.Data = data.Entity.Id;
+            response.StatusCode = (int)HttpStatusCode.Created;
             response.IsSuccessful = true;
-            response.StatusCode = (int)HttpStatusCode.OK;
-            response.Data = "Report queued.";
 
             return response;
-
         }
 
-        public async Task<Guid> CreateReportAsync(HotelsInfoByLocationDto hotelsInfoByLocation)
+        public async Task<ApiResponse> GetReportByIdAsync(Guid id)
         {
-            var report = hotelsInfoByLocation.Adapt<HotelsByLocation>();
-            report.Status =Domain.Enums.ReportStatus.GettingReady;
+            ApiResponse response = new ApiResponse();
+            var data = await unitOfWork.Context.Reports.Where(c => c.IsDeleted.Equals(false) && c.Id.Equals(id)).SingleOrDefaultAsync();
 
-            var data = await unitOfWork.Context.HotelsByLocations.AddAsync(report);
-            await unitOfWork.Context.SaveChangesAsync();
+            response.Data = data;
+            response.StatusCode = (int)HttpStatusCode.OK;
+            response.IsSuccessful = true;
 
-            report.Status = Domain.Enums.ReportStatus.Completed;
-            await unitOfWork.Context.SaveChangesAsync();
-
-            return data.Entity.Id;
+            return response;
         }
+
+        public async Task<ApiResponse> GetReportsAsync(ReportStatus? reportStatus)
+        {
+
+            ApiResponse response = new ApiResponse();
+
+            var predicate = PredicateBuilder.True<Report.Domain.Entities.Report>();
+
+            predicate = predicate.And(c => c.IsDeleted.Equals(false));
+
+            if (!reportStatus.Equals(null))
+            {
+                predicate.And(c => c.ReportStatus.Equals(reportStatus));
+            }
+
+            var data = await unitOfWork.Context.Reports.Where(predicate).ToListAsync();
+
+            response.Data = data.Adapt<List<ReportDto>>();
+            response.StatusCode = (int)HttpStatusCode.OK;
+            response.IsSuccessful = true;
+
+            return response;
+        }
+
+
     }
 }

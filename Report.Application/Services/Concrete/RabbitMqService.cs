@@ -63,6 +63,5 @@ namespace Report.Application.Services.Concrete
         }
 
 
-        public async Task
     }
 }

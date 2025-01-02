@@ -7,6 +7,5 @@ namespace Report.Application.Dtos
         public string Location { get; init; }
         public int HotelCount { get; init; }
         public int ContactCount { get; init; }
-        public ReportStatus Status { get; init; }
     }
 }

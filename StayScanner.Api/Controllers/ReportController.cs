@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CosmosBase.Entites;
+using Microsoft.AspNetCore.Mvc;
+using Report.Application.Dtos;
 using Report.Application.Services.Abstract;
+using Report.Domain.Enums;
 
 namespace StayScanner.Api.Controllers
 {
@@ -14,7 +17,29 @@ namespace StayScanner.Api.Controllers
             this.rabbitMqService = rabbitMqService;
             this.reportService = reportService;
         }
+        [HttpPost]
+        public async Task<ApiResponse> CreateReport(CreateReportDto report)
+        {
+            return await reportService.CreateReportAsync(report);
+
+        }
+
         [HttpGet]
+        public async Task<IActionResult> GetReportList(ReportStatus? reportStatus)
+        {
+            var result = await reportService.GetReportsAsync(reportStatus);
+            return StatusCode(result.StatusCode, result);
+
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetReportById(Guid id)
+        {
+            var result = await reportService.GetReportByIdAsync(id);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpGet("Deneme")]
         public async Task<IActionResult> Index()
         {
             await rabbitMqService.SendAsync("location", "hotels_by_location", "report.create", "New York");
@@ -22,20 +47,6 @@ namespace StayScanner.Api.Controllers
 
             var data = await rabbitMqService.ConsumeAsync("location", "hotels_by_location", "report.create");
             return Ok(data);
-        }
-
-        [HttpGet("GetHotelsInfoByLocation")]
-        public async Task<IActionResult> GetHotelsInfoByLocation(string location)
-        {
-            var result = await reportService.GetHotelsInfoByLocationAsync(location);
-            return StatusCode(result.StatusCode, result);
-
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetReports()
-        {
-            return Ok();
         }
 
     }

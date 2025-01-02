@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Report.Domain.Entities;
 
 namespace Report.Infrastructure.Context
 {
@@ -9,6 +8,6 @@ namespace Report.Infrastructure.Context
         {
             
         }
-        public DbSet<HotelsByLocation> HotelsByLocations { get; set; }
+        public DbSet<Domain.Entities.Report> Reports { get; set; }
     }
 }
