@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StayScanner.Api", "StayScanner.Api\StayScanner.Api.csproj", "{44BBA9B4-9398-4722-A10A-4C2430FDBE29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StayScanner.Api", "StayScanner.Api\StayScanner.Api.csproj", "{44BBA9B4-9398-4722-A10A-4C2430FDBE29}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hotel", "Hotel", "{C608BDAB-85C0-4D32-873E-69C975248DFC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Report", "Report", "{734A3CA7-081A-447F-837E-0B12386BC2AE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReportService", "ReportService", "{734A3CA7-081A-447F-837E-0B12386BC2AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotel.Infrastructure", "Hotel.Infrastructure\Hotel.Infrastructure.csproj", "{8049A845-30B6-4253-BCD3-CF82BE771B53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotel.Infrastructure", "Hotel.Infrastructure\Hotel.Infrastructure.csproj", "{8049A845-30B6-4253-BCD3-CF82BE771B53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotel.Domain", "Hotel.Domain\Hotel.Domain.csproj", "{CD976C05-D0E2-4AB4-8512-E4FB4E6A6471}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotel.Domain", "Hotel.Domain\Hotel.Domain.csproj", "{CD976C05-D0E2-4AB4-8512-E4FB4E6A6471}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotel.Application", "Hotel.Application\Hotel.Application.csproj", "{ED60398E-1987-4FB6-A28F-0D0B2D2C38AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotel.Application", "Hotel.Application\Hotel.Application.csproj", "{ED60398E-1987-4FB6-A28F-0D0B2D2C38AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Report.Application", "Report.Application\Report.Application.csproj", "{0DD2C7CE-7478-4AC6-AFBF-BA4B0061DCBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Report.Application", "Report.Application\Report.Application.csproj", "{0DD2C7CE-7478-4AC6-AFBF-BA4B0061DCBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Report.Domain", "Report.Domain\Report.Domain.csproj", "{065FD9B5-30A6-4F7A-826D-633EF90D3F7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Report.Domain", "Report.Domain\Report.Domain.csproj", "{065FD9B5-30A6-4F7A-826D-633EF90D3F7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Report.Infrastructure", "Report.Infrastructure\Report.Infrastructure.csproj", "{16AB4481-748B-44DA-B683-2419F7FE6392}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Report.Infrastructure", "Report.Infrastructure\Report.Infrastructure.csproj", "{16AB4481-748B-44DA-B683-2419F7FE6392}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

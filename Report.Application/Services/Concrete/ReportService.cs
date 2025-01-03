@@ -24,22 +24,36 @@ namespace Report.Application.Services.Concrete
             this.unitOfWork = unitOfWork;
         }
 
+        public async Task<ApiResponse> GetHotelsInfoByLocationAsync(string location)
+        {
+            ApiResponse response = new ApiResponse();
+
+             rabbitMqService.SendAsync("report", "create_report", "report.location", location);
+
+            response.Data = "Report queued for preparation";
+            response.IsSuccessful = true;
+            response.StatusCode = (int)HttpStatusCode.OK;
+            return response;
+        }
+
+
         public async Task<ApiResponse> CreateReportAsync(CreateReportDto report)
         {
             ApiResponse response = new ApiResponse();
 
-            var reportEntity = report.Adapt<Report.Domain.Entities.Report>();
-            reportEntity.ReportStatus = Domain.Enums.ReportStatus.GettingReady;
+            var data = report.Adapt<Report.Domain.Entities.Report>();
 
-            var data = await unitOfWork.Context.Reports.AddAsync(reportEntity);
-            await unitOfWork.Context.SaveChangesAsync();
+            data.SetCreatedAt(DateTime.UtcNow);
+            data.ReportStatus = ReportStatus.GettingReady;
 
-            response.Data = data.Entity.Id;
-            response.StatusCode = (int)HttpStatusCode.Created;
+            var createdData = await unitOfWork.Context.Reports.AddAsync(data);
+            await unitOfWork.SaveChangesAsync();
+            response.Data = createdData.Entity.Id;
             response.IsSuccessful = true;
-
+            response.StatusCode = (int)HttpStatusCode.OK;
             return response;
         }
+
 
         public async Task<ApiResponse> GetReportByIdAsync(Guid id)
         {
@@ -53,7 +67,7 @@ namespace Report.Application.Services.Concrete
             return response;
         }
 
-        public async Task<ApiResponse> GetReportsAsync(ReportStatus? reportStatus)
+        public async Task<ApiResponse> GetReportsAsync(ReportStatus? reportStatus, ReportType? reportType)
         {
 
             ApiResponse response = new ApiResponse();
@@ -66,6 +80,10 @@ namespace Report.Application.Services.Concrete
             {
                 predicate.And(c => c.ReportStatus.Equals(reportStatus));
             }
+            if (!reportType.Equals(null))
+            {
+                predicate.And(c => c.ReportType.Equals(reportStatus));
+            }
 
             var data = await unitOfWork.Context.Reports.Where(predicate).ToListAsync();
 
@@ -76,6 +94,9 @@ namespace Report.Application.Services.Concrete
             return response;
         }
 
-
+        public Task<ApiResponse> UpdateReportAsync(UpdateReportDto location)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

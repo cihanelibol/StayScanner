@@ -2,7 +2,6 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Report.Application.Services.Abstract;
-using System.Reflection;
 using System.Text;
 
 namespace Report.Application.Services.Concrete
@@ -33,15 +32,15 @@ namespace Report.Application.Services.Concrete
 
 
 
-        public async Task<object> ConsumeAsync(string queueName, string exchangeName, string routingKey)
+        public async Task<object> ConsumeAsync(string queueName, string exchangeName, string routingKey, CancellationToken cancellationToken)
         {
             var factory = new ConnectionFactory { HostName = HOSTNAME };
+
             using var connection = await factory.CreateConnectionAsync();
             using var channel = await connection.CreateChannelAsync();
 
             await channel.QueueDeclareAsync(queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
             await channel.ExchangeDeclareAsync(exchangeName, ExchangeType.Direct, durable: true);
-
             await channel.QueueBindAsync(queueName, exchangeName, routingKey);
 
             var consumer = new AsyncEventingBasicConsumer(channel);
@@ -53,13 +52,16 @@ namespace Report.Application.Services.Concrete
                 string message = Encoding.UTF8.GetString(body);
 
                 tcs.SetResult(message);
+
+                await Task.CompletedTask;
             };
 
             await channel.BasicConsumeAsync(queueName, autoAck: true, consumer: consumer);
 
-            var data = tcs.Task.Result;
-
-            return data;
+            using (cancellationToken.Register(() => tcs.TrySetCanceled()))
+            {
+                return await tcs.Task;
+            }
         }
 
 

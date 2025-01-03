@@ -17,6 +17,13 @@ namespace StayScanner.Api.Controllers
             this.rabbitMqService = rabbitMqService;
             this.reportService = reportService;
         }
+        [HttpGet("GetHotelInfoByLocationReport")]
+        public async Task<IActionResult> GetHotelsInfoByLocation(string location)
+        {
+            var result = await reportService.GetHotelsInfoByLocationAsync(location);
+            return StatusCode(result.StatusCode, result);
+        }
+
         [HttpPost]
         public async Task<ApiResponse> CreateReport(CreateReportDto report)
         {
@@ -25,9 +32,9 @@ namespace StayScanner.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetReportList(ReportStatus? reportStatus)
+        public async Task<IActionResult> GetReportList(ReportStatus? reportStatus, ReportType? reportType)
         {
-            var result = await reportService.GetReportsAsync(reportStatus);
+            var result = await reportService.GetReportsAsync(reportStatus, reportType);
             return StatusCode(result.StatusCode, result);
 
         }
@@ -39,15 +46,6 @@ namespace StayScanner.Api.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("Deneme")]
-        public async Task<IActionResult> Index()
-        {
-            await rabbitMqService.SendAsync("location", "hotels_by_location", "report.create", "New York");
-
-
-            var data = await rabbitMqService.ConsumeAsync("location", "hotels_by_location", "report.create");
-            return Ok(data);
-        }
 
     }
 }

@@ -39,5 +39,11 @@ namespace StayScanner.Api.Controllers
             var result = await _hotelService.GetAuthorizedListAsync();
             return StatusCode(result.StatusCode,result);
         }
+        [HttpGet("GetHotelInfoByLocation")]
+        public async Task<IActionResult> GetHotelsListByLocation(string location)
+        {
+            var result = await _hotelService.GetHotelsInfoByLocation(location);
+            return StatusCode(result.StatusCode,result);
+        }
     }
 }

@@ -1,8 +1,12 @@
-﻿namespace Report.Application.Dtos
+﻿using Report.Domain.Enums;
+
+namespace Report.Application.Dtos
 {
     public record CreateReportDto
     {
-        public required string ReportDetail { get; init; }
-        public required string ReportObjectType { get; init; }
+        public string? RequestedBody { get; set; }
+        public string? ReportDetail { get; set; }
+        public required ReportType ReportType { get; init; }
+        
     }
 }

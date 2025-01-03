@@ -5,6 +5,7 @@ using Hotel.Application.Services.Abstract;
 using Hotel.Infrastructure.Context;
 using Mapster;
 using MapsterMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 
@@ -85,6 +86,29 @@ namespace Hotel.Application.Services.Concrete
             return response;
         }
 
+        public async Task<ApiResponse> GetHotelsInfoByLocation(string location)
+        {
+            var response = new ApiResponse();
+            var hotelData = await unitOfWork.Context.Hotels
+                .Where(h => !h.IsDeleted && h.Contacts.Any(c => c.Location.Contains(location)))
+                .Select(h => new
+                {
+                    HotelId = h.Id,
+                    HotelName = h.CompanyName,
+                    ContactCount = h.Contacts.Count
+                })
+                .ToListAsync();
 
+            response.Data = new GetHotelsInfoByLocationResponse
+            {
+                Location = location,
+                HotelCount = hotelData.Count,
+                PhoneNumberCount = hotelData.Sum(h => h.ContactCount)
+            };
+            response.IsSuccessful = true;
+            response.StatusCode = (int)HttpStatusCode.OK;
+
+            return response;
+        }
     }
 }
