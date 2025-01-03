@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Report.Application.BackgroundServices;
+using Report.Application.Message.Consumer;
 using Report.Application.Services.Abstract;
 using Report.Application.Services.Concrete;
 using Report.Infrastructure.Context;
@@ -16,6 +18,9 @@ namespace Report.Application.DependencyInjection
 
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IRabbitMqService, RabbitMqService>();
+            services.AddHostedService<GetHotelByLocationConsumer>();
+            services.AddHostedService<HotelsInfoByLocationReportCreator>();
+
             return services;
         }
     }

@@ -9,5 +9,6 @@ namespace Hotel.Application.Services.Abstract
         public Task<ApiResponse> DeleteHotelAsync(Guid hotelId);
         public Task<ApiResponse> GetAuthorizedListAsync();
         public Task<ApiResponse> GetAuthorizedByHotelIdAsync(Guid id);
+        public Task<ApiResponse> GetHotelsInfoByLocation(string location);
     }
 }
