@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hotel.Application\Hotel.Application.csproj" />
+    <ProjectReference Include="..\Report.Application\Report.Application.csproj" />
   </ItemGroup>
 
 </Project>

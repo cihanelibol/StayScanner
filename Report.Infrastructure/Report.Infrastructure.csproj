@@ -10,4 +10,8 @@
     <PackageReference Include="CosmosBase" Version="1.5.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Report.Domain\Report.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

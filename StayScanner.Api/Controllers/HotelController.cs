@@ -16,24 +16,34 @@ namespace StayScanner.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<Guid> Create(HotelDto hotel)
+        public async Task<IActionResult> Create(HotelDto hotel)
         {
-            return await _hotelService.CreateHotelAsync(hotel);
+            var result = await _hotelService.CreateHotelAsync(hotel);
+            return StatusCode(result.StatusCode,result);
         }
         [HttpDelete]
-        public async Task<bool> Delete(Guid hotelId)
+        public async Task<IActionResult> Delete(Guid hotelId)
         {
-            return await _hotelService.DeleteHotelAsync(hotelId);
+            var result = await _hotelService.DeleteHotelAsync(hotelId);
+            return StatusCode(result.StatusCode, result);   
         }
         [HttpGet("GetAuthorizedByHotelId")]
-        public async Task<AuthorizedPerson> GetAuthorizedByHotelId(Guid hotelId)
+        public async Task<IActionResult> GetAuthorizedByHotelId(Guid hotelId)
         {
-            return await _hotelService.GetAuthorizedByHotelIdAsync(hotelId);
+            var result = await _hotelService.GetAuthorizedByHotelIdAsync(hotelId);
+            return StatusCode(result.StatusCode,result);
         }
         [HttpGet("GetAuthorizedListAsync")]
-        public async Task<List<AuthorizedPerson>> GetAuthorizedList()
+        public async Task<IActionResult> GetAuthorizedList()
         {
-            return await _hotelService.GetAuthorizedListAsync();
+            var result = await _hotelService.GetAuthorizedListAsync();
+            return StatusCode(result.StatusCode,result);
+        }
+        [HttpGet("GetHotelInfoByLocation")]
+        public async Task<IActionResult> GetHotelsListByLocation(string location)
+        {
+            var result = await _hotelService.GetHotelsInfoByLocation(location);
+            return StatusCode(result.StatusCode,result);
         }
     }
 }
