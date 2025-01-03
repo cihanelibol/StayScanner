@@ -13,8 +13,15 @@ namespace Report.Application.DependencyInjection
     {
         public static IServiceCollection AddReportConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(configuration.GetConnectionString("ReportDevDb"),
+            services.AddDbContext<ReportDbContext>(opt => opt.UseNpgsql(configuration.GetConnectionString("ReportDevDb"),
                 b => b.MigrationsAssembly("StayScanner.Api")));
+
+
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                var dbContext = serviceProvider.GetRequiredService<ReportDbContext>();
+                dbContext.Database.Migrate(); 
+            }
 
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IRabbitMqService, RabbitMqService>();

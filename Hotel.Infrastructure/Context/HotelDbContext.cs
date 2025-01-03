@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.Infrastructure.Context
 {
-    public class ApplicationDbContext :DbContext
+    public class HotelDbContext :DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options) 
+        public HotelDbContext(DbContextOptions<HotelDbContext> options):base(options) 
         {
             
         }

@@ -2,9 +2,9 @@
 
 namespace Report.Infrastructure.Context
 {
-    public class ApplicationDbContext : DbContext
+    public class ReportDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options) 
+        public ReportDbContext(DbContextOptions<ReportDbContext> options):base(options) 
         {
             
         }

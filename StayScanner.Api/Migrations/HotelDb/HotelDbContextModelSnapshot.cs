@@ -3,20 +3,17 @@ using System;
 using Hotel.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace StayScanner.Api.Migrations
+namespace StayScanner.Api.Migrations.HotelDb
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250102120809_AddedContactFK")]
-    partial class AddedContactFK
+    [DbContext(typeof(HotelDbContext))]
+    partial class HotelDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

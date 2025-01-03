@@ -11,7 +11,7 @@ namespace Report.Application.BackgroundServices
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly IHttpClientFactory _httpClientFactory;
-        private IUnitOfWork<ApplicationDbContext> _unitOfWork;
+        private IUnitOfWork<ReportDbContext> _unitOfWork;
 
         public HotelsInfoByLocationReportCreator(IServiceScopeFactory serviceScopeFactory, IHttpClientFactory httpClientFactory)
         {
@@ -26,7 +26,7 @@ namespace Report.Application.BackgroundServices
 
                 using var scope = _serviceScopeFactory.CreateScope();
                 var reportService = scope.ServiceProvider.GetRequiredService<IReportService>();
-                _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork<ApplicationDbContext>>();
+                _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork<ReportDbContext>>();
 
                 var datas = _unitOfWork.Context.Reports.Where(c =>
                      !c.IsDeleted &&
