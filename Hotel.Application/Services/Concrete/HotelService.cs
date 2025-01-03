@@ -13,10 +13,10 @@ namespace Hotel.Application.Services.Concrete
 {
     public class HotelService : IHotelService
     {
-        private readonly IUnitOfWork<ApplicationDbContext> unitOfWork;
+        private readonly IUnitOfWork<HotelDbContext> unitOfWork;
         private readonly IMapper mapper;
 
-        public HotelService(IUnitOfWork<ApplicationDbContext> unitOfWork)
+        public HotelService(IUnitOfWork<HotelDbContext> unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }

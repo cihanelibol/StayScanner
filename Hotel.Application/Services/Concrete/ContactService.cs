@@ -11,10 +11,10 @@ namespace Hotel.Application.Services.Concrete
 {
     public class ContactService : IContactService
     {
-        private readonly IUnitOfWork<ApplicationDbContext> unitOfWork;
+        private readonly IUnitOfWork<HotelDbContext> unitOfWork;
         private readonly IMapper mapper;
 
-        public ContactService(IUnitOfWork<ApplicationDbContext> unitOfWork)
+        public ContactService(IUnitOfWork<HotelDbContext> unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }

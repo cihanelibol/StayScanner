@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StayScanner.Api", "StayScanner.Api\StayScanner.Api.csproj", "{44BBA9B4-9398-4722-A10A-4C2430FDBE29}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hotel", "Hotel", "{C608BDAB-85C0-4D32-873E-69C975248DFC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HotelService", "HotelService", "{C608BDAB-85C0-4D32-873E-69C975248DFC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReportService", "ReportService", "{734A3CA7-081A-447F-837E-0B12386BC2AE}"
 EndProject

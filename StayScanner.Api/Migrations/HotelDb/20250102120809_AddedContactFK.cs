@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace StayScanner.Api.Migrations
+namespace StayScanner.Api.Migrations.HotelDb
 {
     /// <inheritdoc />
     public partial class AddedContactFK : Migration

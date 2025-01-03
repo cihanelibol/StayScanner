@@ -16,9 +16,9 @@ namespace Report.Application.Services.Concrete
     {
         private readonly IRabbitMqService rabbitMqService;
         private readonly IMapper mapper;
-        private readonly IUnitOfWork<ApplicationDbContext> unitOfWork;
+        private readonly IUnitOfWork<ReportDbContext> unitOfWork;
 
-        public ReportService(IRabbitMqService rabbitMqService, IUnitOfWork<ApplicationDbContext> unitOfWork)
+        public ReportService(IRabbitMqService rabbitMqService, IUnitOfWork<ReportDbContext> unitOfWork)
         {
             this.rabbitMqService = rabbitMqService;
             this.unitOfWork = unitOfWork;

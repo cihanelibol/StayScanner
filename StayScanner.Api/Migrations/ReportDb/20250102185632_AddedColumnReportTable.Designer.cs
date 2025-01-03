@@ -9,11 +9,11 @@ using Report.Infrastructure.Context;
 
 #nullable disable
 
-namespace StayScanner.Api.Migrations.ApplicationDb
+namespace StayScanner.Api.Migrations.ReportDb
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250103144327_ChangedColumnsReportTable")]
-    partial class ChangedColumnsReportTable
+    [DbContext(typeof(ReportDbContext))]
+    [Migration("20250102185632_AddedColumnReportTable")]
+    partial class AddedColumnReportTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,14 +43,11 @@ namespace StayScanner.Api.Migrations.ApplicationDb
                     b.Property<string>("ReportDetail")
                         .HasColumnType("text");
 
+                    b.Property<string>("ReportObjectType")
+                        .HasColumnType("text");
+
                     b.Property<int>("ReportStatus")
                         .HasColumnType("integer");
-
-                    b.Property<int>("ReportType")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("RequestedDetail")
-                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
