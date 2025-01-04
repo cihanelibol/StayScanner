@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  stayscanner.api:
+    image: ${DOCKER_REGISTRY-}stayscannerapi
+    ports:
+      - "7146:7146" 
+    build:
+      context: .
+      dockerfile: StayScanner.Api/Dockerfile
+    depends_on:
+      - rabbitmq
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__HotelDevDb=Host=postgres;Port=5432;Database=HotelDevDb;Username=postgres;Password=1
+      - ConnectionStrings__ReportDevDb=Host=postgres;Port=5432;Database=ReportDevDb;Username=postgres;Password=1
+      - ASPNETCORE_URLS=http://0.0.0.0:7146
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672" 
+      - "15672:15672" 
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1
+      POSTGRES_DB: HotelDevDb
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  elasticsearch:
+     image: docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+     container_name: elasticsearch
+     environment:
+      - discovery.type=single-node
+      - ELASTICSEARCH_PASSWORD=changeme  
+     ports:
+      - "9200:9200" 
+      - "9300:9300" 
+     networks:
+      - elk
+     volumes:
+      - esdata:/var/lib/elasticsearch/data
+
+  kibana:
+     image: docker.elastic.co/kibana/kibana:8.4.3
+     container_name: kibana
+     environment:
+       - ELASTICSEARCH_URL=http://elasticsearch:9200  
+     ports:
+       - "5601:5601" 
+     networks:
+       - elk
+     depends_on:
+       - elasticsearch
+
+  logstash:
+     image: docker.elastic.co/logstash/logstash:8.4.3
+     container_name: logstash
+     environment:
+       - LOGSTASH_HTTP_HOST=0.0.0.0
+     ports:
+       - "5044:5044"  
+       - "9600:9600"  
+     volumes:
+       - ./logstash/pipeline:/usr/share/logstash/pipeline  
+     networks:
+       - elk
+     depends_on:
+       - elasticsearch
+
+volumes:
+  postgres_data:
+  esdata: 
+
+networks:
+  elk:
+    driver: bridge
