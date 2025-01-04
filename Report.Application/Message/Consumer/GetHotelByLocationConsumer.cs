@@ -33,7 +33,7 @@ namespace Report.Application.Message.Consumer
             const string exchangeName = "create_report";
             const string routingKey = "report.location";
 
-            var factory = new ConnectionFactory { HostName = "localhost" };
+            var factory = new ConnectionFactory { HostName = "rabbitmq" };
 
             using var connection = await factory.CreateConnectionAsync();
             using var channel = await connection.CreateChannelAsync();
@@ -71,9 +71,6 @@ namespace Report.Application.Message.Consumer
             await Task.Delay(Timeout.Infinite, cancellationToken);
         }
 
-        public override void Dispose()
-        {
-            base.Dispose();
-        }
+
     }
 }

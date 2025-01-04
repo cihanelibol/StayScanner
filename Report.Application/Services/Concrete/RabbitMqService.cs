@@ -8,7 +8,7 @@ namespace Report.Application.Services.Concrete
 {
     public class RabbitMqService : IRabbitMqService
     {
-        private readonly string HOSTNAME = "localhost";
+        private readonly string HOSTNAME = "rabbitmq";
 
         public RabbitMqService()
         {
