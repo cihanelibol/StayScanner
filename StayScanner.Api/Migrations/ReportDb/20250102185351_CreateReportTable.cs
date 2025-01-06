@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace StayScanner.Api.Migrations.ApplicationDb
+namespace StayScanner.Api.Migrations.ReportDb
 {
     /// <inheritdoc />
     public partial class CreateReportTable : Migration

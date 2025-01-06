@@ -15,19 +15,22 @@ namespace StayScanner.Api.Controllers
             _contactService = contactService;
         }
         [HttpPost]
-        public async Task<Guid> Create(ContactDto contact)
+        public async Task<IActionResult> Create(ContactDto contact)
         {
-            return await _contactService.CreateContactAsync(contact);
+            var response = await _contactService.CreateContactAsync(contact);
+            return StatusCode(response.StatusCode, response);
         }
         [HttpDelete]
-        public async Task<bool> Delete(Guid contactId)
+        public async Task<IActionResult> Delete(Guid contactId)
         {
-            return await _contactService.DeleteContactAsync(contactId);
+            var response = await _contactService.DeleteContactAsync(contactId);
+            return StatusCode(response.StatusCode, response);
         }
         [HttpGet("GetAllContactsByHotelId")]
-        public async Task<List<ContactDto>> GetAllContactsByHotelIdAsync(Guid hotelId)
+        public async Task<IActionResult> GetAllContactsByHotelIdAsync(Guid hotelId)
         {
-            return await _contactService.GetAllContactsByHotelIdAsync(hotelId);
+            var response = await _contactService.GetAllContactsByHotelIdAsync(hotelId);
+            return StatusCode(response.StatusCode, response);
         }
     }
 }

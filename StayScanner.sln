@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StayScanner.Api", "StayScanner.Api\StayScanner.Api.csproj", "{44BBA9B4-9398-4722-A10A-4C2430FDBE29}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hotel", "Hotel", "{C608BDAB-85C0-4D32-873E-69C975248DFC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HotelService", "HotelService", "{C608BDAB-85C0-4D32-873E-69C975248DFC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReportService", "ReportService", "{734A3CA7-081A-447F-837E-0B12386BC2AE}"
 EndProject
@@ -20,6 +20,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Report.Domain", "Report.Domain\Report.Domain.csproj", "{065FD9B5-30A6-4F7A-826D-633EF90D3F7C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Report.Infrastructure", "Report.Infrastructure\Report.Infrastructure.csproj", "{16AB4481-748B-44DA-B683-2419F7FE6392}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DA37D378-3417-4F44-98FD-8B06A0A1FBB2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0A608D31-8882-48E9-B669-494CFE351C6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotel.UnitTest", "HotelService.UnitTest\Hotel.UnitTest.csproj", "{1ACAAFBF-329B-481F-808C-EE77EB1FC821}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Report.UnitTest", "Report.UnitTest\Report.UnitTest.csproj", "{5E91AB28-DA68-4E0F-BB76-89A47C5DFB9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +63,18 @@ Global
 		{16AB4481-748B-44DA-B683-2419F7FE6392}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16AB4481-748B-44DA-B683-2419F7FE6392}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16AB4481-748B-44DA-B683-2419F7FE6392}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA37D378-3417-4F44-98FD-8B06A0A1FBB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA37D378-3417-4F44-98FD-8B06A0A1FBB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA37D378-3417-4F44-98FD-8B06A0A1FBB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA37D378-3417-4F44-98FD-8B06A0A1FBB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ACAAFBF-329B-481F-808C-EE77EB1FC821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ACAAFBF-329B-481F-808C-EE77EB1FC821}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ACAAFBF-329B-481F-808C-EE77EB1FC821}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ACAAFBF-329B-481F-808C-EE77EB1FC821}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E91AB28-DA68-4E0F-BB76-89A47C5DFB9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E91AB28-DA68-4E0F-BB76-89A47C5DFB9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E91AB28-DA68-4E0F-BB76-89A47C5DFB9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E91AB28-DA68-4E0F-BB76-89A47C5DFB9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +86,8 @@ Global
 		{0DD2C7CE-7478-4AC6-AFBF-BA4B0061DCBE} = {734A3CA7-081A-447F-837E-0B12386BC2AE}
 		{065FD9B5-30A6-4F7A-826D-633EF90D3F7C} = {734A3CA7-081A-447F-837E-0B12386BC2AE}
 		{16AB4481-748B-44DA-B683-2419F7FE6392} = {734A3CA7-081A-447F-837E-0B12386BC2AE}
+		{1ACAAFBF-329B-481F-808C-EE77EB1FC821} = {0A608D31-8882-48E9-B669-494CFE351C6E}
+		{5E91AB28-DA68-4E0F-BB76-89A47C5DFB9C} = {0A608D31-8882-48E9-B669-494CFE351C6E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FBFA714C-02D2-439B-A857-32660CC63F3C}

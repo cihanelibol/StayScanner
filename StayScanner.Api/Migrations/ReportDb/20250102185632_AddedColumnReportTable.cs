@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace StayScanner.Api.Migrations.ApplicationDb
+namespace StayScanner.Api.Migrations.ReportDb
 {
     /// <inheritdoc />
     public partial class AddedColumnReportTable : Migration

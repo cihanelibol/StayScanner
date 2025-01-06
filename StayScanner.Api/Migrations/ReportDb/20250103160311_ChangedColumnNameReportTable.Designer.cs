@@ -9,11 +9,11 @@ using Report.Infrastructure.Context;
 
 #nullable disable
 
-namespace StayScanner.Api.Migrations.ApplicationDb
+namespace StayScanner.Api.Migrations.ReportDb
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250102185351_CreateReportTable")]
-    partial class CreateReportTable
+    [DbContext(typeof(ReportDbContext))]
+    [Migration("20250103160311_ChangedColumnNameReportTable")]
+    partial class ChangedColumnNameReportTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,8 +40,17 @@ namespace StayScanner.Api.Migrations.ApplicationDb
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("ReportDetail")
+                        .HasColumnType("text");
+
                     b.Property<int>("ReportStatus")
                         .HasColumnType("integer");
+
+                    b.Property<int>("ReportType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("RequestedBody")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");

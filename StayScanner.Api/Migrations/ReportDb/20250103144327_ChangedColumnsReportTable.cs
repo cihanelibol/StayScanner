@@ -2,27 +2,27 @@
 
 #nullable disable
 
-namespace StayScanner.Api.Migrations.ApplicationDb
+namespace StayScanner.Api.Migrations.ReportDb
 {
     /// <inheritdoc />
-    public partial class ChangedColumnNameReportTable : Migration
+    public partial class ChangedColumnsReportTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
+            migrationBuilder.AddColumn<string>(
                 name: "RequestedDetail",
                 table: "Reports",
-                newName: "RequestedBody");
+                type: "text",
+                nullable: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "RequestedBody",
-                table: "Reports",
-                newName: "RequestedDetail");
+            migrationBuilder.DropColumn(
+                name: "RequestedDetail",
+                table: "Reports");
         }
     }
 }

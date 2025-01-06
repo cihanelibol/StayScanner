@@ -9,9 +9,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace StayScanner.Api.Migrations
+namespace StayScanner.Api.Migrations.HotelDb
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(HotelDbContext))]
     [Migration("20250102104645_InitialMigration")]
     partial class InitialMigration
     {

@@ -1,6 +1,10 @@
-﻿using CosmosBase.Repository.Abstract;
+﻿using CosmosBase.Entites;
+using CosmosBase.Repository.Abstract;
+using Mapster;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using Report.Application.Services.Abstract;
 using Report.Domain.Enums;
 using Report.Infrastructure.Context;
@@ -11,7 +15,7 @@ namespace Report.Application.BackgroundServices
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly IHttpClientFactory _httpClientFactory;
-        private IUnitOfWork<ApplicationDbContext> _unitOfWork;
+        private IUnitOfWork<ReportDbContext> _unitOfWork;
 
         public HotelsInfoByLocationReportCreator(IServiceScopeFactory serviceScopeFactory, IHttpClientFactory httpClientFactory)
         {
@@ -23,35 +27,42 @@ namespace Report.Application.BackgroundServices
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-
                 using var scope = _serviceScopeFactory.CreateScope();
                 var reportService = scope.ServiceProvider.GetRequiredService<IReportService>();
-                _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork<ApplicationDbContext>>();
+                _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork<ReportDbContext>>();
 
-                var datas = _unitOfWork.Context.Reports.Where(c =>
-                     !c.IsDeleted &&
-                     c.ReportStatus.Equals(ReportStatus.GettingReady) &&
-                     c.ReportType.Equals(ReportType.GetHotelsByLocation))
-                .ToList();
+                var datas = await _unitOfWork.Context.Reports.Where(c =>
+                    !c.IsDeleted &&
+                    c.ReportStatus.Equals(ReportStatus.GettingReady) &&
+                    c.ReportType.Equals(ReportType.GetHotelsByLocation))
+                    .ToListAsync();
 
                 foreach (var report in datas)
                 {
                     var client = _httpClientFactory.CreateClient();
-                    var response = await client.GetAsync($"https://localhost:7146/api/Hotel/GetHotelInfoByLocation?location={report.RequestedBody}");
-
-                    if (response.IsSuccessStatusCode)
+                    try
                     {
-                        var result = await response.Content.ReadAsStringAsync();
-                        report.ReportStatus = ReportStatus.Completed;
-                        report.SetUpdatedAt(DateTime.UtcNow);
-                        report.ReportDetail = result;
-                        await _unitOfWork.Context.SaveChangesAsync();
+                        var response = await client.GetAsync($"http://localhost:7146/api/Hotel/GetHotelInfoByLocation?location={report.RequestedBody}", stoppingToken);
 
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var result = await response.Content.ReadAsStringAsync();
+                            report.ReportStatus = ReportStatus.Completed;
+                            report.SetUpdatedAt(DateTime.UtcNow);
+                            var apiResponseData = JsonConvert.DeserializeObject<ApiResponse>(result).Data.ToString();
+                            report.ReportDetail = apiResponseData;
+                            await _unitOfWork.Context.SaveChangesAsync();
+                        }
+                    }
+                    catch (Exception r)
+                    {
+                        break;
                     }
                 }
-                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
 
+                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
             }
         }
+
     }
 }

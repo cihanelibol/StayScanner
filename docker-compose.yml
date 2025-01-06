@@ -1,0 +1,113 @@
+version: '3.8'
+
+services:
+  stayscanner.api:
+    image: ${DOCKER_REGISTRY-}stayscannerapi
+    ports:
+      - "7146:7146" 
+    build:
+      context: .
+      dockerfile: StayScanner.Api/Dockerfile
+    depends_on:
+      - rabbitmq
+      - postgres
+      - elasticsearch
+      - kibana
+      - logstash 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__HotelDevDb=Host=postgres;Port=5432;Database=HotelDevDb;Username=postgres;Password=1
+      - ConnectionStrings__ReportDevDb=Host=postgres;Port=5432;Database=ReportDevDb;Username=postgres;Password=1
+      - ASPNETCORE_URLS=http://0.0.0.0:7146
+    networks:
+      - elk
+
+  rabbitmq:
+    image: rabbitmq:4.0-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672" 
+      - "15672:15672" 
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+     - elk
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1
+      POSTGRES_DB: HotelDevDb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - elk
+
+  elasticsearch:
+     image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
+     container_name: elasticsearch
+     environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false  
+     ports:
+      - "9200:9200" 
+      - "9300:9300" 
+     networks:
+      - elk
+     volumes:
+      - esdata:/var/lib/elasticsearch/data
+     healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=50s"]
+      interval: 30s
+      retries: 3
+      start_period: 30s
+      timeout: 10s
+
+  kibana:
+     image: docker.elastic.co/kibana/kibana:8.7.1
+     container_name: kibana
+     environment:
+       - SERVER_HOST=0.0.0.0
+       - ELASTICSEARCH_URL=http://elasticsearch:9200  
+     ports:
+       - "5601:5601" 
+     networks:
+       - elk
+     depends_on:
+       - elasticsearch
+
+  logstash:
+     image: docker.elastic.co/logstash/logstash:8.7.1
+     container_name: logstash
+     environment:
+       - LOGSTASH_HTTP_HOST=0.0.0.0
+     ports:
+       - "5044:5044"  
+       - "9600:9600"  
+     volumes:
+       - ./logstash.conf:/usr/share/logstash.conf
+     networks:
+       - elk
+     depends_on:
+       elasticsearch:
+        condition: service_healthy
+
+         
+volumes:
+  postgres_data:
+  esdata: 
+
+networks:
+  elk:
+    driver: bridge

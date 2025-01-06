@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Report.Infrastructure.Context;
 
 #nullable disable
 
-namespace StayScanner.Api.Migrations.ApplicationDb
+namespace StayScanner.Api.Migrations.ReportDb
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250102222854_ChangedColumnReportTable")]
-    partial class ChangedColumnReportTable
+    [DbContext(typeof(ReportDbContext))]
+    partial class ReportDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,6 +45,9 @@ namespace StayScanner.Api.Migrations.ApplicationDb
 
                     b.Property<int>("ReportType")
                         .HasColumnType("integer");
+
+                    b.Property<string>("RequestedBody")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
