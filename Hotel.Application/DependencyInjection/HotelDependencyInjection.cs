@@ -14,14 +14,31 @@ namespace Hotel.Application.DependencyInjection
         {
 
             services.AddDbContext<HotelDbContext>(opt =>
-opt.UseNpgsql(configuration.GetConnectionString("HotelDevDb"),
- b =>
- b.MigrationsAssembly("StayScanner.Api")));
+                    opt.UseNpgsql(configuration.GetConnectionString("HotelDevDb"),
+                    b =>
+                    b.MigrationsAssembly("StayScanner.Api")));
 
             using (var serviceProvider = services.BuildServiceProvider())
             {
                 var dbContext = serviceProvider.GetRequiredService<HotelDbContext>();
-                dbContext.Database.Migrate();
+                
+                var retryCount = 5;
+                var delay = TimeSpan.FromSeconds(5);
+                for (int i = 0; i < retryCount; i++)
+                {
+                    try
+                    {
+                        dbContext.Database.Migrate();
+                        break;
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        if (i == retryCount - 1)
+                            throw;
+
+                        Thread.Sleep(delay);
+                    }
+                }
             }
             services.AddScoped<IHotelService, HotelService>();
             services.AddScoped<IContactService, ContactService>();

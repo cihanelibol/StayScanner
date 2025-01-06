@@ -36,7 +36,6 @@ namespace Report.Application.DependencyInjection
                         if (i == retryCount - 1)
                             throw;
 
-                        Console.WriteLine($"Database connection failed. Retrying in {delay.Seconds} seconds...");
                         Thread.Sleep(delay);
                     }
                 }

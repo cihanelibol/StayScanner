@@ -11,6 +11,9 @@ services:
     depends_on:
       - rabbitmq
       - postgres
+      - elasticsearch
+      - kibana
+      - logstash 
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__HotelDevDb=Host=postgres;Port=5432;Database=HotelDevDb;Username=postgres;Password=1
@@ -30,6 +33,12 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
     networks:
      - elk
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
 
   postgres:
     image: postgres:14
