@@ -1,7 +1,10 @@
-﻿using CosmosBase.Repository.Abstract;
+﻿using CosmosBase.Entites;
+using CosmosBase.Repository.Abstract;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using Report.Application.Services.Abstract;
 using Report.Domain.Enums;
 using Report.Infrastructure.Context;
@@ -46,7 +49,8 @@ namespace Report.Application.BackgroundServices
                             var result = await response.Content.ReadAsStringAsync();
                             report.ReportStatus = ReportStatus.Completed;
                             report.SetUpdatedAt(DateTime.UtcNow);
-                            report.ReportDetail = result;
+                            var apiResponseData = JsonConvert.DeserializeObject<ApiResponse>(result).Data.ToString();
+                            report.ReportDetail = apiResponseData;
                             await _unitOfWork.Context.SaveChangesAsync();
                         }
                     }
