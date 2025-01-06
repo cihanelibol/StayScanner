@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StayScanner\Report.Application\Report.Application.csproj" />
-    <ProjectReference Include="..\StayScanner\Report.Infrastructure\Report.Infrastructure.csproj" />
+    <ProjectReference Include="..\Report.Application\Report.Application.csproj" />
+    <ProjectReference Include="..\Report.Infrastructure\Report.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
