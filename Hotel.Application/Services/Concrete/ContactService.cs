@@ -1,4 +1,5 @@
-﻿using CosmosBase.Repository.Abstract;
+﻿using CosmosBase.Entites;
+using CosmosBase.Repository.Abstract;
 using Hotel.Application.Dto;
 using Hotel.Application.Services.Abstract;
 using Hotel.Domain.Entities;
@@ -6,6 +7,7 @@ using Hotel.Infrastructure.Context;
 using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace Hotel.Application.Services.Concrete
 {
@@ -19,18 +21,23 @@ namespace Hotel.Application.Services.Concrete
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<Guid> CreateContactAsync(ContactDto contact)
+        public async Task<ApiResponse> CreateContactAsync(ContactDto contact)
         {
+            var response = new ApiResponse();
             var contactData = contact.Adapt<Contact>();
 
             var data = await unitOfWork.Context.Contacts.AddAsync(contactData);
             await unitOfWork.SaveChangesAsync();
 
-            return data.Entity.Id;
+            response.Data = data.Entity.Id; 
+            response.StatusCode = (int)HttpStatusCode.Created;
+            response.IsSuccessful = true;
+            return response;
         }
 
-        public async Task<bool> DeleteContactAsync(Guid contactId)
+        public async Task<ApiResponse> DeleteContactAsync(Guid contactId)
         {
+            var response = new ApiResponse();
             var data = unitOfWork.Context.Contacts.Where(c => c.Id.Equals(contactId)).SingleOrDefault();
             if (data == null)
                 throw new ArgumentNullException();
@@ -38,13 +45,16 @@ namespace Hotel.Application.Services.Concrete
             data.SetIsDeleted(true);
 
             await unitOfWork.SaveChangesAsync();
-
-            return true;
+            response.Data = true;
+            response.IsSuccessful = true;
+            response.StatusCode = (int)HttpStatusCode.OK;
+            return response;
         }
 
-        public async Task<List<ContactDto>> GetAllContactsByHotelIdAsync(Guid hotelId)
+        public async Task<ApiResponse> GetAllContactsByHotelIdAsync(Guid hotelId)
         {
-            return await unitOfWork.Context.Contacts.Where(x => x.HotelId.Equals(hotelId) && x.IsDeleted.Equals(false)).Select(v =>
+            var response = new ApiResponse();   
+            var  data = await unitOfWork.Context.Contacts.Where(x => x.HotelId.Equals(hotelId) && x.IsDeleted.Equals(false)).Select(v =>
                 new ContactDto
                 {
                     Email = v.Email,
@@ -54,6 +64,18 @@ namespace Hotel.Application.Services.Concrete
                     Details = v.Details,
                 }
             ).ToListAsync();
+
+            if (data.Count.Equals(0))
+            {
+                response.Error = "Data not found";
+                response.IsSuccessful = false;
+                response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return response;
+            }
+            response.Data = data;
+            response.IsSuccessful = true;
+            response.StatusCode= (int)HttpStatusCode.OK;
+            return response;
         }
     }
 }
