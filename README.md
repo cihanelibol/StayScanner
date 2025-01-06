@@ -49,3 +49,19 @@ This project uses Docker Compose to orchestrate the following services:
 - **kibana**: UI for interacting with Elasticsearch data.
 - **logstash**: Log ingestion and processing service.
 
+  
+![image](https://github.com/user-attachments/assets/c0682750-5fa7-4ca7-8078-17fab2fdb364)
+
+Beklenen işlevler:
+• Otel oluşturma => [HttpPost] api/Hotel
+• Otel kaldırma => [HttpDelete] api/Hotel
+• Otel iletişim bilgisi ekleme => [HttpPost] api/Contact
+• Otel iletişim bilgisi kaldırma => [HttpDelete] api/Contact
+• Otel yetkililerinin listelenmesi => [HttpGet] api/Hotel/GetAuthorizedByHotelId
+• Otel ile ilgili iletişim bilgilerinin de yer aldığı detay bilgilerin getirilmesi => [HttpGet] api/Contact/GetAllContactsByHotelId
+• Otellerin bulundukları konuma göre istatistiklerini çıkartan bir rapor talebi => [HttpGet] api/Report/GetHotelInfoByLocationReport
+• Sistemin oluşturduğu raporların listelenmesi => [HttpGet] api/Report
+• Sistemin oluşturduğu bir raporun detay bilgilerinin getirilmesi => [HttpGet] api/Report{id}
+
+
+
