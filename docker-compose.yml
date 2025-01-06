@@ -16,9 +16,11 @@ services:
       - ConnectionStrings__HotelDevDb=Host=postgres;Port=5432;Database=HotelDevDb;Username=postgres;Password=1
       - ConnectionStrings__ReportDevDb=Host=postgres;Port=5432;Database=ReportDevDb;Username=postgres;Password=1
       - ASPNETCORE_URLS=http://0.0.0.0:7146
+    networks:
+      - elk
 
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:4.0-management
     container_name: rabbitmq
     ports:
       - "5672:5672" 
@@ -26,6 +28,8 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+    networks:
+     - elk
 
   postgres:
     image: postgres:14
@@ -36,16 +40,17 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1
       POSTGRES_DB: HotelDevDb
-
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - elk
 
   elasticsearch:
-     image: docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+     image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
      container_name: elasticsearch
      environment:
       - discovery.type=single-node
-      - ELASTICSEARCH_PASSWORD=changeme  
+      - xpack.security.enabled=false  
      ports:
       - "9200:9200" 
       - "9300:9300" 
@@ -53,11 +58,18 @@ services:
       - elk
      volumes:
       - esdata:/var/lib/elasticsearch/data
+     healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=50s"]
+      interval: 30s
+      retries: 3
+      start_period: 30s
+      timeout: 10s
 
   kibana:
-     image: docker.elastic.co/kibana/kibana:8.4.3
+     image: docker.elastic.co/kibana/kibana:8.7.1
      container_name: kibana
      environment:
+       - SERVER_HOST=0.0.0.0
        - ELASTICSEARCH_URL=http://elasticsearch:9200  
      ports:
        - "5601:5601" 
@@ -67,7 +79,7 @@ services:
        - elasticsearch
 
   logstash:
-     image: docker.elastic.co/logstash/logstash:8.4.3
+     image: docker.elastic.co/logstash/logstash:8.7.1
      container_name: logstash
      environment:
        - LOGSTASH_HTTP_HOST=0.0.0.0
@@ -75,12 +87,14 @@ services:
        - "5044:5044"  
        - "9600:9600"  
      volumes:
-       - ./logstash/pipeline:/usr/share/logstash/pipeline  
+       - ./logstash.conf:/usr/share/logstash.conf
      networks:
        - elk
      depends_on:
-       - elasticsearch
+       elasticsearch:
+        condition: service_healthy
 
+         
 volumes:
   postgres_data:
   esdata: 

@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Report.Infrastructure", "Re
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DA37D378-3417-4F44-98FD-8B06A0A1FBB2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0A608D31-8882-48E9-B669-494CFE351C6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotel.UnitTest", "..\HotelService.UnitTest\Hotel.UnitTest.csproj", "{1ACAAFBF-329B-481F-808C-EE77EB1FC821}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,10 @@ Global
 		{DA37D378-3417-4F44-98FD-8B06A0A1FBB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA37D378-3417-4F44-98FD-8B06A0A1FBB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA37D378-3417-4F44-98FD-8B06A0A1FBB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ACAAFBF-329B-481F-808C-EE77EB1FC821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ACAAFBF-329B-481F-808C-EE77EB1FC821}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ACAAFBF-329B-481F-808C-EE77EB1FC821}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ACAAFBF-329B-481F-808C-EE77EB1FC821}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +80,7 @@ Global
 		{0DD2C7CE-7478-4AC6-AFBF-BA4B0061DCBE} = {734A3CA7-081A-447F-837E-0B12386BC2AE}
 		{065FD9B5-30A6-4F7A-826D-633EF90D3F7C} = {734A3CA7-081A-447F-837E-0B12386BC2AE}
 		{16AB4481-748B-44DA-B683-2419F7FE6392} = {734A3CA7-081A-447F-837E-0B12386BC2AE}
+		{1ACAAFBF-329B-481F-808C-EE77EB1FC821} = {0A608D31-8882-48E9-B669-494CFE351C6E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FBFA714C-02D2-439B-A857-32660CC63F3C}
