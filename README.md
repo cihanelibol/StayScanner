@@ -29,6 +29,7 @@ docker-compose up --build
 
 ### Accessing the services:
 
+- The swagger documentation available at [http://localhost:7146/swagger](http://localhost:7146/swagger).
 - The API will be available at [http://localhost:7146](http://localhost:7146).
 - RabbitMQ Management UI can be accessed at [http://localhost:15672](http://localhost:15672) with the default credentials (`guest`/`guest`).
 - PostgreSQL is available on port `5432`.
