@@ -15,7 +15,15 @@ builder.Services.AddReportConfiguration(builder.Configuration);
 
 
 #region Serilog RabbitMq Settings
-var factory = new ConnectionFactory { HostName = "rabbitmq" };
+var factory = new ConnectionFactory
+{
+    HostName = "rabbitmq",
+    RequestedConnectionTimeout = TimeSpan.FromSeconds(30),
+    SocketReadTimeout = TimeSpan.FromSeconds(30),
+    SocketWriteTimeout = TimeSpan.FromSeconds(30),
+    AutomaticRecoveryEnabled = true, 
+    NetworkRecoveryInterval = TimeSpan.FromSeconds(10)
+};
 
 using var connection = await factory.CreateConnectionAsync();
 using var channel = await connection.CreateChannelAsync();
@@ -28,17 +36,17 @@ Log.Logger = new LoggerConfiguration()
    .MinimumLevel.Debug()
    .WriteTo.Console()
    .WriteTo.RabbitMQ(
-        username: "logstash",
-        password: "logstash",
+        username: "guest",
+        password: "guest",
         hostnames: new[] { "rabbitmq" },
-        exchange:"log",
-        routingKey:"log.elastic",
-        exchangeType:"direct",
+        exchange: "log",
+        routingKey: "log.elastic",
+        exchangeType: "direct",
         port: 5672,
         formatter: new JsonFormatter()
     ).CreateLogger();
 
-        Log.Warning("Selam Dünyalý!!!");
+Log.Warning("Selam Dünyalý!!!");
 
 
 #endregion
@@ -58,9 +66,9 @@ app.Use(async (context, next) =>
 {
     Log.Information("Request Headers: {Headers}", context.Request.Headers);
 
-    context.Request.EnableBuffering(); 
+    context.Request.EnableBuffering();
     var requestBody = await new StreamReader(context.Request.Body).ReadToEndAsync();
-    context.Request.Body.Position = 0; 
+    context.Request.Body.Position = 0;
     Log.Information("Request Body: {Body}", requestBody);
 
     var originalResponseBodyStream = context.Response.Body;
